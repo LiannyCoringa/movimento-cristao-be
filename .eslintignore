@@ -3,3 +3,5 @@ coverage
 .nyc*
 tests/unit/mocks/**
 tests/integration/mocks/**
+src/migrations/**
+src/seeders/**
