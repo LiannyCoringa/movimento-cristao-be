@@ -3,6 +3,13 @@ const UserModel = (sequelize, DataTypes) => {
       fullName: DataTypes.STRING,
       email: DataTypes.STRING,
     });
+
+    User.associate = (models) => {
+      User.hasMany(models.Message, {
+        foreignKey: 'userId',
+        as: 'messages',
+      });
+    };
   
     return User;
   };

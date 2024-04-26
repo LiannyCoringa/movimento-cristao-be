@@ -9,7 +9,8 @@
     "debug": "nodemon --ignore coverage src/server.js",
     "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json . --ext .js, .jsx",
     "predev": "env $(cat .env) npx sequelize db:create && env $(cat .env) npx sequelize db:migrate",
-    "seed": "env $(cat .env) npx sequelize db:seed"
+    "seed": "env $(cat .env) npx sequelize db:seed", 
+    "recria": "env $(cat .env) npx sequelize db:migrate && env $(cat .env) npx sequelize db:seed:all"
   },
   "keywords": [],
   "author": "",
