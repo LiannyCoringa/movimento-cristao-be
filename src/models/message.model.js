@@ -1,10 +1,13 @@
 const MessageModel = (sequelize, DataTypes) => {
     const Message = sequelize.define('Message', {
-      message: DataTypes.LONGTEXT,
-      date: DataTypes.DATE,
+      message: DataTypes.TEXT,
+      date: DataTypes.STRING,
       userId: {
         type: DataTypes.INTEGER,
         foreignKey: true },
+    },
+    {
+      timestamps: false,
     });
 
     Message.associate = (models) => {

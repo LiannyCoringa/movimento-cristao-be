@@ -4,8 +4,8 @@ const error500Message = 'Algo deu errado.';
 
 const getAll = async (_req, res) => {
   try {
-    const messages = await messageService.getAll();
-    return res.status(200).json(messages);
+    const { status, data } = await messageService.getAll();
+    return res.status(status).json(data);
   } catch (e) {
     console.log(e.message);
     res.status(500).json({ message: 'Ocorreu um erro' });

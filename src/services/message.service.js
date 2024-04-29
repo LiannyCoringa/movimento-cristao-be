@@ -3,7 +3,7 @@ const { Message } = require('../models');
 const getAll = async () => {
   const messages = await Message.findAll();
 
-  return messages;
+  return { status: 200, data: messages };
 };
 
 const getById = async (id) => {

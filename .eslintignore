@@ -5,3 +5,4 @@ tests/unit/mocks/**
 tests/integration/mocks/**
 src/migrations/**
 src/seeders/**
+src/models/**
