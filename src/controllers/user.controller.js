@@ -1,68 +1,37 @@
 const userService = require('../services/user.service');
 
-const error500Message = 'Algo deu errado.';
-
 const getAll = async (_req, res) => {
-  try {
-    const users = await userService.getAll();
-    return res.status(200).json(users);
-  } catch (e) {
-    console.log(e.message);
-    res.status(500).json({ message: 'Ocorreu um erro' });
-  }
+  const { status, data } = await userService.getAll();
+  return res.status(status).json(data);
 };
 
 const getById = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const user = await userService.getById(id);
+  const { id } = req.params;
+  const { status, data } = await userService.getById(id);
 
-    if (!user) return res.status(404).json({ message: 'Usuário não encontrado' });
-
-    return res.status(200).json(user);
-  } catch (e) {
-    console.log(e.message);
-    res.status(500).json({ message: error500Message });
-  }
+  return res.status(status).json(data);
 };
 
 const createUser = async (req, res) => {
-  try {
-    const { fullName, email } = req.body;
-    const newUser = await userService.createUser(fullName, email);
+  const { fullName, email, password } = req.body;
+  const { status, data } = await userService.createUser({ fullName, email, password });
 
-    return res.status(201).json(newUser);
-  } catch (e) {
-    console.log(e.message);
-    res.status(500).json({ message: error500Message });
-  }
+  return res.status(status).json(data);
 };
 
 const updateUser = async (req, res) => {
-  try {
-    const { fullName, email } = req.body;
-    const { id } = req.params;
-    const updatedUser = await userService.updateUser(id, fullName, email);
+  const { fullName, email, password } = req.body;
+  const { id } = req.params;
+  const { status, data } = await userService.updateUser(id, fullName, email, password);
 
-    if (!updatedUser) return res.status(404).json({ message: 'Usuário não encontrado' });
-
-    return res.status(200).json({ message: 'Usuário atualizado com sucesso!' });
-  } catch (e) {
-    console.log(e.message);
-    res.status(500).json({ message: error500Message });
-  }
+  return res.status(status).json(data);
 };
 
 const deleteUser = async (req, res) => {
-  try {
-    const { id } = req.params;
-    await userService.deleteUser(id);
+  const { id } = req.user;
+  const { status, data } = await userService.deleteUser(id);
 
-    return res.status(200).json({ message: 'Usuário excluído com sucesso!' });
-  } catch (e) {
-    console.log(e.message);
-    res.status(500).json({ message: error500Message });
-  }
+  return res.status(status).json(data);
 };
 
 module.exports = {

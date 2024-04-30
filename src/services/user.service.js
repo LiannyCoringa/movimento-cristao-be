@@ -1,41 +1,77 @@
 const { User } = require('../models');
+const generateToken = require('../utils/token');
 
 const getAll = async () => {
-  const users = await User.findAll();
+  const users = await User.findAll({
+    attributes: { exclude: ['password'] },
+  });
 
-  return users;
+  return { status: 200, data: users };
 };
 
 const getById = async (id) => {
-  const user = await User.findByPk(id);
+  const user = await User.findByPk(id, {
+    attributes: { exclude: ['password'] },
+  });
 
-  return user;
+  if (!user) return { status: 404, data: { message: 'User does not exist' } };
+
+  return { status: 200, data: user };
 };
 
-const createUser = async (fullName, email) => {
-  const newUser = await User.create({ fullName, email });
+const getByEmail = async (email) => {
+  const user = await User.findOne({
+    where: { email },
+    attributes: { exclude: ['password'] },
+  });
 
-  return newUser;
+  if (!user) return { status: 404, data: { message: 'User does not exist' } };
+
+  return { status: 200, data: user };
 };
 
-const updateUser = async (id, fullName, email) => {
+const createUser = async (fullName, email, password) => {
+  const getByEmails = await User.findOne({
+    where: { email },
+    attributes: { exclude: ['password', 'email'] },
+  });
+
+  if (getByEmails) {
+    return { status: 409, data: { message: 'User already registered' } };
+  }
+
+  const regex = /^\S+@\S+\.\S+$/;
+  if (regex.test(email) === false) {
+    return { status: 400, data: { message: '"email" must be a valid email' } };
+  }
+
+  const user = await User.create({ fullName, email, password });
+  const { id } = user.dataValues;
+  const token = generateToken.generateToken({ id });
+  return { status: 201, data: { token } };
+};
+
+const updateUser = async (id, fullName, email, password) => {
   const [updatedUser] = await User.update(
-    { fullName, email },
+    { fullName, email, password },
     { where: { id } },
   );
-  return updatedUser;
+
+  if (!updatedUser) return { status: 404, data: { message: 'User does not exist' } };
+  return { status: 200, data: updatedUser };
 };
 
 const deleteUser = async (id) => {
-  const user = await User.destroy(
+  await User.destroy(
     { where: { id } },
   );
-  return user;
+  return { status: 204, data: {} };
 };
 
 module.exports = {
   getAll,
   getById,
+  getByEmail,
   createUser,
   updateUser,
   deleteUser,

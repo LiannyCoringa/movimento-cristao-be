@@ -9,7 +9,7 @@
     "debug": "nodemon --ignore coverage src/server.js",
     "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json . --ext .js, .jsx",
     "predev": "env $(cat .env) npx sequelize db:create && env $(cat .env) npx sequelize db:migrate",
-    "seed": "env $(cat .env) npx sequelize db:seed", 
+    "seed": "env $(cat .env) npx sequelize db:seed",
     "recria": "env $(cat .env) npx sequelize db:migrate && env $(cat .env) npx sequelize db:seed:all"
   },
   "keywords": [],
@@ -23,6 +23,7 @@
   "dependencies": {
     "camelize": "^1.0.1",
     "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
     "mysql2": "3.0.0",
     "sequelize": "6.3.4",
     "snakeize": "^0.1.0"
