@@ -16,7 +16,9 @@ module.exports = {
       },
       date: {
         type: Sequelize.STRING,
-        allowNull: false,
+      },
+      url: {
+        type: Sequelize.STRING,
       },
       userId: {
         type: Sequelize.INTEGER,

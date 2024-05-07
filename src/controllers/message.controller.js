@@ -28,8 +28,8 @@ const getById = async (req, res) => {
 
 const createMessage = async (req, res) => {
   try {
-    const { message, date, userId } = req.body;
-    const newMessage = await messageService.createMessage(message, date, userId);
+    const { message, date, url, userId } = req.body;
+    const newMessage = await messageService.createMessage(message, date, url, userId);
 
     return res.status(201).json(newMessage);
   } catch (e) {
@@ -40,9 +40,9 @@ const createMessage = async (req, res) => {
 
 const updateMessage = async (req, res) => {
   try {
-    const { message, date, userId } = req.body;
+    const { message, date, url, userId } = req.body;
     const { id } = req.params;
-    const updatedMessage = await messageService.updateMessage(id, message, date, userId);
+    const updatedMessage = await messageService.updateMessage(id, message, date, url, userId);
 
     if (!updatedMessage) return res.status(404).json({ message: 'Mensagem não encontrada' });
 

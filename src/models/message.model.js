@@ -2,6 +2,7 @@ const MessageModel = (sequelize, DataTypes) => {
     const Message = sequelize.define('Message', {
       message: DataTypes.TEXT,
       date: DataTypes.STRING,
+      url: DataTypes.STRING,
       userId: {
         type: DataTypes.INTEGER,
         foreignKey: true },

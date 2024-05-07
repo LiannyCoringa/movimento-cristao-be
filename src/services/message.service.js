@@ -12,15 +12,16 @@ const getById = async (id) => {
   return message;
 };
 
-const createMessage = async (message, date, userId) => {
-  const newMessage = await Message.create({ message, date, userId });
+const createMessage = async (message, date, url, userId) => {
+  const newMessage = await Message.create({ message, date, url, userId });
 
   return newMessage;
 };
 
-const updateMessage = async (id, message, date, userId) => {
+// eslint-disable-next-line max-params
+const updateMessage = async (id, message, date, url, userId) => {
   const [updatedMessage] = await Message.update(
-    { message, date, userId },
+    { message, date, url, userId },
     { where: { id } },
   );
   return updatedMessage;
