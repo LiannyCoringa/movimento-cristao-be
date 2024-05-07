@@ -2,23 +2,30 @@
   "name": "movimento-cristao",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/server.js",
   "scripts": {
+    "dev": "nodemon src/server.js",
     "start": "node src/server.js",
     "debug": "nodemon --ignore coverage src/server.js",
-    "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json . --ext .js, .jsx"
+    "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json . --ext .js, .jsx",
+    "predev": "env $(cat .env) npx sequelize db:create && env $(cat .env) npx sequelize db:migrate",
+    "seed": "env $(cat .env) npx sequelize db:seed",
+    "recria": "env $(cat .env) npx sequelize db:migrate && env $(cat .env) npx sequelize db:seed:all"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "eslint-config-trybe-backend": "^2.1.0",
-    "nodemon": "^2.0.22"
+    "nodemon": "^2.0.22",
+    "sequelize-cli": "6.6.1"
   },
   "dependencies": {
     "camelize": "^1.0.1",
     "express": "^4.18.2",
-    "mysql2": "^3.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "3.0.0",
+    "sequelize": "6.3.4",
     "snakeize": "^0.1.0"
   }
 }
