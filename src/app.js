@@ -23,8 +23,8 @@ app.post('/users', userController.createUser);
 app.put('/users/:id', userController.updateUser);
 app.delete('/users/:id', userController.deleteUser);
 
-app.get('/messages', validateJWT, messageController.getAll);
-app.get('/messages/:id', validateJWT, messageController.getById);
+app.get('/messages', messageController.getAll);
+app.get('/messages/:id', messageController.getById);
 app.post('/messages', validateJWT, messageController.createMessage);
 app.put('/messages/:id', validateJWT, messageController.updateMessage);
 app.delete('/messages/:id', validateJWT, messageController.deleteMessage);
