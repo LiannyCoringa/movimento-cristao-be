@@ -1,11 +1,17 @@
 const express = require('express');
 
+const cors = require('cors');
 const userController = require('./controllers/user.controller');
 const messageController = require('./controllers/message.controller');
 const loginController = require('./controllers/login.controller');
 const validateJWT = require('./auth/validateJWT');
 
 const app = express();
+
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+}));
 
 app.use(express.json());
 
