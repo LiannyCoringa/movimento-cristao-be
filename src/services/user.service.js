@@ -47,7 +47,7 @@ const createUser = async (fullName, email, password) => {
 
   const user = await User.create({ fullName, email, password });
   const { id } = user.dataValues;
-  const token = generateToken.generateToken({ id });
+  const token = generateToken({ id });
   return { status: 201, data: { token } };
 };
 
