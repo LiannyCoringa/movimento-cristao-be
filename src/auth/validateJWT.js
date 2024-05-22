@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 const userService = require('../services/user.service');
 
-const secret = process.env.JWT_SECRET || 'jwt_secret';
+const secret = process.env.JWT_SECRET || 'password-9';
 
 function extractToken(bearerToken) {
   return bearerToken.split(' ')[1];
