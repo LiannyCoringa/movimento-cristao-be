@@ -8,10 +8,7 @@ const validateJWT = require('./auth/validateJWT');
 
 const app = express();
 
-app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-}));
+app.use(cors());
 
 app.use(express.json());
 
