@@ -31,6 +31,8 @@ const createMessage = async (req, res) => {
     const { message, date, url, userId } = req.body;
     const newMessage = await messageService.createMessage(message, date, url, userId);
 
+    if (newMessage.status === 409) return res.status(409).json(newMessage.data);
+
     return res.status(201).json(newMessage);
   } catch (e) {
     console.log(e.message);
