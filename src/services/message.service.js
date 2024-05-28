@@ -13,6 +13,11 @@ const getById = async (id) => {
 };
 
 const createMessage = async (message, date, url, userId) => {
+  const messageExists = await Message.findOne({ where: { message } });
+  const dateExists = await Message.findOne({ where: { date } });
+  if (messageExists) return ({ status: 409, data: { message: 'Message already exists' } });
+  if (dateExists) return ({ status: 409, data: { message: 'Date already exists' } });
+  
   const newMessage = await Message.create({ message, date, url, userId });
 
   return newMessage;
